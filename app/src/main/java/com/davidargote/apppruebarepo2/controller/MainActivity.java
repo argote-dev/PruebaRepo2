@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bitmapPhoto = camera.getPhoto();
 
             //Cambia el background de el canvas para pintar la imagen
-            Drawable drawable = new BitmapDrawable(getResources(),bitmapPhoto);
+            Drawable drawable = new BitmapDrawable(getResources(), bitmapPhoto);
             canvasDraw.setBackground(drawable);
 
         } else {
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (urlPhoto != null) {
             if (db.insertar(nombre, urlPhoto)) {
-                Toast.makeText(this, "  Guardada con exito", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Guardada con exito", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
                 canvasDraw.destroyDrawingCache();

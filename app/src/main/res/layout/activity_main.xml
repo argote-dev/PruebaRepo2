@@ -11,7 +11,7 @@
         android:id="@+id/canvasView"
         android:layout_width="320dp"
         android:layout_height="330dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,15 +29,14 @@
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/canvasView" />
 
     <Button
         android:id="@+id/btnEraeser"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/bg_buttom_take_photo"
         android:drawableTop="@drawable/delete_draw"
         android:drawablePadding="5dp"
@@ -45,16 +44,17 @@
         android:text="Eliminar firma"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toStartOf="@+id/btnPencil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnTakePhoto"
+        app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto" />
+        app:layout_constraintTop_toTopOf="@+id/btnTakePhoto"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnPencil"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/bg_buttom_take_photo"
         android:drawableTop="@drawable/pencil_draw"
         android:drawablePadding="5dp"
@@ -62,9 +62,12 @@
         android:text="Firmar"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnEraeser"
-        app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto" />
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/btnTakePhoto"
+        app:layout_constraintTop_toTopOf="@+id/btnTakePhoto"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSavePhoto"
@@ -80,7 +83,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.982" />
 
     <ImageView
         android:id="@+id/btnClose"
@@ -106,8 +109,8 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnSavePhoto"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto"
-        app:layout_constraintVertical_bias="0.919" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
 </androidx.constraintlayout.widget.ConstraintLayout>
