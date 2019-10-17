@@ -1,4 +1,4 @@
-package com.davidargote.apppruebarepo2;
+package com.davidargote.apppruebarepo2.model;
 
 import android.content.Context;
 import android.database.Cursor;

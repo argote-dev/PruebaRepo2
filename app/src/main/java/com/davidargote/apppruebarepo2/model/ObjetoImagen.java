@@ -1,4 +1,4 @@
-package com.davidargote.apppruebarepo2;
+package com.davidargote.apppruebarepo2.model;
 
 public class ObjetoImagen {
 

@@ -1,4 +1,4 @@
-package com.davidargote.apppruebarepo2;
+package com.davidargote.apppruebarepo2.model;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.davidargote.apppruebarepo2.R;
 
 import java.util.ArrayList;
 
