@@ -17,18 +17,16 @@ public class adaptadorLista extends RecyclerView.Adapter<adaptadorLista.ViewHold
 
     ArrayList<ObjetoImagen> lista;
 
-    public adaptadorLista(ArrayList<ObjetoImagen> objetos)
-    {
+    public adaptadorLista(ArrayList<ObjetoImagen> objetos) {
         this.lista = objetos;
     }
 
     @NonNull
     @Override
-    public adaptadorLista.ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public adaptadorLista.ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = null;
 
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,null,false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
 
         return new ViewHolderDatos(v);
     }
@@ -42,7 +40,7 @@ public class adaptadorLista extends RecyclerView.Adapter<adaptadorLista.ViewHold
 
     @Override
     public int getItemCount() {
-       return lista.size();
+        return lista.size();
     }
 
 

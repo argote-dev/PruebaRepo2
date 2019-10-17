@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.davidargote.apppruebarepo2.R;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btnTakePhoto, btnSave;
     private CanvasDraw canvasDraw;
+    private ImageView btnClose;
 
     public static String[] PERMISSONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     public static int RESIZE_PHOTO = 10;
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSave = findViewById(R.id.btnSavePhoto);
         btnSave.setOnClickListener(this);
 
+        btnClose = findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(this);
+
         canvasDraw = findViewById(R.id.canvasView);
 
     }
@@ -81,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
+            case R.id.btnClose:
+                System.exit(0);
+                break;
         }
     }
 
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (urlPhoto != null) {
             if (db.insertar(nombre, urlPhoto)) {
-                Toast.makeText(this, "Guardada con exito", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "  Guardada con exito", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
             }
