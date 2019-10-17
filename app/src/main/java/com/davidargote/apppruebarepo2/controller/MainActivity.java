@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.davidargote.apppruebarepo2.R;
+import com.davidargote.apppruebarepo2.draw.CanvasDraw;
 import com.davidargote.apppruebarepo2.model.ImagenesDB;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
@@ -20,7 +23,8 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnTakePhoto;
+    private Button btnTakePhoto, btnSave;
+    private CanvasDraw canvasDraw;
 
     public static String[] PERMISSONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     public static int RESIZE_PHOTO = 10;
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         permissions = new MagicalPermissions(this, PERMISSONS);
         camera = new MagicalCamera(this, RESIZE_PHOTO, permissions);
 
@@ -52,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTakePhoto = findViewById(R.id.btnTakePhoto);
         btnTakePhoto.setOnClickListener(this);
 
+        btnSave = findViewById(R.id.btnSavePhoto);
+        btnSave.setOnClickListener(this);
+
+        canvasDraw = findViewById(R.id.canvasView);
+
     }
 
     @Override
@@ -60,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnTakePhoto:
                 camera.takePhoto();
+                break;
+
+            case R.id.btnSavePhoto:
+                if (camera.getPhoto() != null) {
+                    savePhotoInStorage();
+                }else{
+                    Toast.makeText(this, "Toma primero una foto", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
         }
@@ -72,30 +91,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         camera.resultPhoto(requestCode, resultCode, data, MagicalCamera.ORIENTATION_ROTATE_90);
 
         if (camera.getPhoto() != null) {
-                //TODO IMPLEMENTAR CAMBIO DE FOTO
-                bitmapPhoto = camera.getPhoto();
+
+            bitmapPhoto = camera.getPhoto();
+
+            //Cambia el background de el canvas para pintar la imagen
+            Drawable drawable = new BitmapDrawable(bitmapPhoto);
+            canvasDraw.setBackgroundDrawable(drawable);
+
         } else {
             Toast.makeText(this, "No se tomó la foto", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void savePhotoInStorage(){
+    public void savePhotoInStorage() {
 
         String nombre = UUID.randomUUID().toString();
         urlPhoto = camera.savePhotoInMemoryDevice(bitmapPhoto, nombre, false);
 
-        if(urlPhoto != null)
-        {
-            if(db.insertar(nombre,urlPhoto))
-            {
-                Toast.makeText(this, "Guardada con exito",Toast.LENGTH_SHORT).show();
+        if (urlPhoto != null) {
+            if (db.insertar(nombre, urlPhoto)) {
+                Toast.makeText(this, "Guardada con exito", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
             }
-            else
-            {
-                Toast.makeText(this, "Error al guardar",Toast.LENGTH_SHORT).show();
-            }
-
         }
 
     }

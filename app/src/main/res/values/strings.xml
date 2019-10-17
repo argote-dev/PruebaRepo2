@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AppPruebaRepo2</string>
     <string name="title_tomar_foto">Tomar foto</string>
+    <string name="title_save">Guardar</string>
 </resources>
