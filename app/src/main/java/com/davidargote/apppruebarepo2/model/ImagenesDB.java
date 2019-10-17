@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ImagenesDB extends SQLiteOpenHelper {
 
     private final static int DATABASE_VERSION = 1;
-    private final static String DATABASE_NAME = "imagenes";
+    private final static String DATABASE_NAME = "imagenes.db";
 
 
     public ImagenesDB(@Nullable Context context) {
