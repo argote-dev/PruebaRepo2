@@ -19,7 +19,7 @@ public class CanvasDraw extends View {
 
     private Path drawPath;
     private Paint paint, canvasPaint;
-    private int paintColor = 000000;
+    public static int paintColor = 000000;
     private Canvas canvas;
     private Bitmap canvasBitMap;
     float lapisSize;
@@ -27,7 +27,7 @@ public class CanvasDraw extends View {
 
     public CanvasDraw(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        startDrawing();
+        startDrawing(Color.TRANSPARENT);
     }
 
     @Override
@@ -36,10 +36,10 @@ public class CanvasDraw extends View {
         canvas.drawPath(drawPath, paint);
     }
 
-    private void startDrawing() {
+    public void startDrawing(int paintColor) {
         drawPath = new Path();
         paint = new Paint();
-        paint.setColor(Color.TRANSPARENT);
+        paint.setColor(paintColor);
         paint.setAntiAlias(true);
         lapisSize = 10;
         paint.setStrokeWidth(lapisSize);
@@ -82,7 +82,8 @@ public class CanvasDraw extends View {
     public void setBorrado(boolean estado){
         borrador = estado;
         if(borrador) {
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            canvas.drawColor(0,PorterDuff.Mode.CLEAR);
+            invalidate();
         }else{
             paint.setXfermode(null);
         }

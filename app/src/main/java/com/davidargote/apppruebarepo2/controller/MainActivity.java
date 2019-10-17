@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTakePhoto, btnSave;
+    private Button btnEraeser, btnPencil;
     private CanvasDraw canvasDraw;
     private ImageView btnClose;
 
@@ -68,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         canvasDraw = findViewById(R.id.canvasView);
 
+        btnEraeser = findViewById(R.id.btnEraeser);
+        btnEraeser.setOnClickListener(this);
+
+        btnPencil = findViewById(R.id.btnPencil);
+        btnPencil.setOnClickListener(this);
+
     }
 
     @Override
@@ -89,6 +97,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnClose:
                 System.exit(0);
                 break;
+
+            case R.id.btnPencil:
+                canvasDraw.setBorrado(false);
+                canvasDraw.startDrawing(0xFF000000);
+                break;
+
+            case R.id.btnEraeser:
+                canvasDraw.setBorrado(true);
+                break;
+
+
         }
     }
 
@@ -103,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bitmapPhoto = camera.getPhoto();
 
             //Cambia el background de el canvas para pintar la imagen
-            Drawable drawable = new BitmapDrawable(bitmapPhoto);
-            canvasDraw.setBackgroundDrawable(drawable);
+            Drawable drawable = new BitmapDrawable(getResources(),bitmapPhoto);
+            canvasDraw.setBackground(drawable);
 
         } else {
             Toast.makeText(this, "No se tomó la foto", Toast.LENGTH_SHORT).show();
@@ -114,14 +133,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void savePhotoInStorage() {
 
-        String nombre = UUID.randomUUID().toString();
-        urlPhoto = camera.savePhotoInMemoryDevice(bitmapPhoto, nombre, false);
+        String nombre = UUID.randomUUID().toString()+".png";
+        canvasDraw.setDrawingCacheEnabled(true);
+        urlPhoto = MediaStore.Images.Media.insertImage(getContentResolver(),canvasDraw.getDrawingCache(), nombre, "photo");
+
 
         if (urlPhoto != null) {
             if (db.insertar(nombre, urlPhoto)) {
                 Toast.makeText(this, "  Guardada con exito", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
+                canvasDraw.destroyDrawingCache();
             }
         }
 
