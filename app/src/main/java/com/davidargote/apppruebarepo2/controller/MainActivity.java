@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.davidargote.apppruebarepo2.R;
+import com.davidargote.apppruebarepo2.model.ImagenesDB;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Bitmap bitmapPhoto;
     private String urlPhoto = "";
 
+    private ImagenesDB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         permissions = new MagicalPermissions(this, PERMISSONS);
         camera = new MagicalCamera(this, RESIZE_PHOTO, permissions);
+
+        db = new ImagenesDB(getApplicationContext());
 
         initViews();
 
@@ -77,7 +82,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void savePhotoInStorage(){
 
-        urlPhoto = camera.savePhotoInMemoryDevice(bitmapPhoto, UUID.randomUUID().toString(), false);
+        String nombre = UUID.randomUUID().toString();
+        urlPhoto = camera.savePhotoInMemoryDevice(bitmapPhoto, nombre, false);
+
+        if(urlPhoto != null)
+        {
+            if(db.insertar(nombre,urlPhoto))
+            {
+                Toast.makeText(this, "Guardada con exito",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Error al guardar",Toast.LENGTH_SHORT).show();
+            }
+
+        }
 
     }
 
