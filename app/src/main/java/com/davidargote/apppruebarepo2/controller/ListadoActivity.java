@@ -3,6 +3,7 @@ package com.davidargote.apppruebarepo2.controller;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +27,14 @@ public class ListadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado);
 
+        getSupportActionBar().hide();
+
         db = new ImagenesDB(getApplicationContext());
 
         recy = (RecyclerView) findViewById(R.id.lvImagenes);
-        recy.setLayoutManager(new LinearLayoutManager(this));
+        recy.setHasFixedSize(true);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        recy.setLayoutManager(manager);
 
         final ArrayList<ObjetoImagen> datos = db.darListado();
         adaptadorLista adapter = new adaptadorLista(datos);

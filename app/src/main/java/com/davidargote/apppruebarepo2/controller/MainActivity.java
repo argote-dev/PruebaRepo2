@@ -24,7 +24,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnTakePhoto, btnSave;
+    private Button btnTakePhoto, btnSave, btnList;
     private CanvasDraw canvasDraw;
     private ImageView btnClose;
 
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnClose = findViewById(R.id.btnClose);
         btnClose.setOnClickListener(this);
 
+        btnList = findViewById(R.id.btnGoList);
+        btnList.setOnClickListener(this);
+
         canvasDraw = findViewById(R.id.canvasView);
 
     }
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnClose:
                 System.exit(0);
+                break;
+
+            case R.id.btnGoList:
+                startActivity(new Intent(MainActivity.this, ListadoActivity.class));
                 break;
         }
     }
