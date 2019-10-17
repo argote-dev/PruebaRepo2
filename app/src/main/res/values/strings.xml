@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppPruebaRepo2</string>
+    <string name="title_tomar_foto">Tomar foto</string>
 </resources>
